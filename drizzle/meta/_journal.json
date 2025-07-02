@@ -1,0 +1,55 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1751452874244,
+      "tag": "0000_giant_annihilus",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1751460923189,
+      "tag": "0001_majestic_wallop",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1751463462574,
+      "tag": "0002_acoustic_blacklash",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1751463807431,
+      "tag": "0003_friendly_shocker",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1751464084129,
+      "tag": "0004_steep_celestials",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1751464256496,
+      "tag": "0005_glorious_deathstrike",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1751465665788,
+      "tag": "0006_adorable_synch",
+      "breakpoints": true
+    }
+  ]
+}
