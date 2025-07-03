@@ -1,6 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import productRouter from './route/product.router';
+import productRouter from './route/product.route';
 import postgres from 'postgres';
 import { drizzle } from 'drizzle-orm/postgres-js';
 dotenv.config();
