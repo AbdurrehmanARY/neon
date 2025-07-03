@@ -54,7 +54,6 @@ export const updateProduct = async (req: Request, res: Response) => {
       return;
     }
     const product = await productService.updateProduct(data, id);
-    console.log('product', product);
 
     if (!product) {
       res.json({
@@ -72,63 +71,75 @@ export const updateProduct = async (req: Request, res: Response) => {
   }
 };
 export const deleteProduct = async (req: Request, res: Response) => {
-  const id: string = req.params.id;
-  const { success } = z.string().uuid().safeParse(id);
-  if (!success) {
-    res.json({
-      message: 'incorrect uuid format',
-    });
-    return;
-  }
+  try {
+    const id: string = req.params.id;
+    const { success } = z.string().uuid().safeParse(id);
+    if (!success) {
+      res.json({
+        message: 'incorrect uuid format',
+      });
+      return;
+    }
 
-  if (!id) {
+    if (!id) {
+      res.json({
+        message: 'product id is not provided',
+      });
+      return;
+    }
+    const product = await productService.deleteProduct(id);
+    if (!product) {
+      res.json({
+        message: 'there is an error while deleting product',
+      });
+    }
     res.json({
-      message: 'product id is not provided',
+      message: 'product deleted successfully',
     });
-    return;
+  } catch (e) {
+    console.log(e);
   }
-  const product = await productService.deleteProduct(id);
-  if (!product) {
-    res.json({
-      message: 'there is an error while deleting product',
-    });
-  }
-  res.json({
-    message: 'product deleted successfully',
-  });
 };
 export const getProducts = async (req: Request, res: Response) => {
-  const products = await productService.findAllProducts();
-  if (products.length === 0) {
-    res.json({
-      message: 'no products found',
-    });
-    return;
-  }
+  try {
+    const products = await productService.findAllProducts();
+    if (products.length === 0) {
+      res.json({
+        message: 'no products found',
+      });
+      return;
+    }
 
-  res.json({
-    message: 'product get successfully',
-    products,
-  });
+    res.json({
+      message: 'product get successfully',
+      products,
+    });
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 export const getSingleProduct = async (req: Request, res: Response) => {
-  const id: string = req.params.id;
-  const { success } = z.string().uuid().safeParse(id);
-  if (!success) {
+  try {
+    const id: string = req.params.id;
+    const { success } = z.string().uuid().safeParse(id);
+    if (!success) {
+      res.json({
+        message: 'incorrect uuid format',
+      });
+      return;
+    }
+    const product = await productService.findProductById(id);
+    if (!product) {
+      res.json({
+        message: 'there is an error while updating product',
+      });
+    }
     res.json({
-      message: 'incorrect uuid format',
+      message: 'product get successfully',
+      product,
     });
-    return;
+  } catch (e) {
+    console.log(e);
   }
-  const product = await productService.findProductById(id);
-  if (!product) {
-    res.json({
-      message: 'there is an error while updating product',
-    });
-  }
-  res.json({
-    message: 'product get successfully',
-    product,
-  });
 };

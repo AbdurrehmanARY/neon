@@ -20,8 +20,7 @@ export const productService = {
         .where(eq(productTable.id, id));
 
       if (findProduct.length === 0) {
-        console.log('product not fount');
-        return;
+        return null;
       }
 
       const update = await db
