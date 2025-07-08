@@ -8,14 +8,6 @@ import {
   varchar,
 } from 'drizzle-orm/pg-core';
 
-// export const usersTable = pgTable("users", {
-//   id: integer().primaryKey().generatedAlwaysAsIdentity(),
-//   name: varchar({ length: 255 }).notNull(),
-//   description: integer().notNull(),
-//   email: varchar({ length: 255 }).notNull().unique(),
-// });
-// const category=pgEnum('category',['Audio','Watch',"Headphone"])
-
 export const productTable = pgTable('products', {
   id: uuid('id').primaryKey().defaultRandom(),
   name: varchar({ length: 255 }),
@@ -31,3 +23,32 @@ export const productTable = pgTable('products', {
     .notNull(),
   deleteAt: timestamp('delet_at', { withTimezone: true }),
 });
+
+export const Role = pgEnum('role', ['user', 'admin']);
+
+export const userTable = pgTable('users', {
+  id: uuid('id').primaryKey().unique().defaultRandom(),
+  userName: varchar('username', { length: 255 }),
+  email: varchar('email', { length: 255 }).notNull(),
+  password: varchar('password', { length: 255 }).notNull(),
+  role: Role('role').default('user').notNull(),
+  isEmailVerified: boolean('email_varified').default(false),
+  emailVarificationToken: varchar('email_varification_token', { length: 250 }),
+  emailVarificationTokenExpire: timestamp('email_varification_token_expire', {
+    withTimezone: true,
+  }),
+  passwordResetToken: varchar('password_reset_token', { length: 300 }),
+  passwordResetTokenExpires: timestamp('password_reset_token_expire', {
+    withTimezone: true,
+  }),
+
+  createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow(),
+  deletedAt: timestamp('deleted_at', { withTimezone: true }),
+});
+
+// // isEmailVerified: { type: Boolean, default: false }, // New field: Email verification status
+//     emailVerificationToken: { type: String },         // New field: Verification token
+//     emailVerificationTokenExpires: { type: Date },    // New field: Token expiry
+//     passwordResetToken: { type: String }, // New field for password reset token
+//     passwordResetTokenExpires: { type: Date }, // New field for password reset token expiry
