@@ -1,29 +1,31 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import dotenv from 'dotenv';
-import postgres from 'postgres';
-import { drizzle } from 'drizzle-orm/postgres-js';
 import cookieParser from 'cookie-parser';
+
+import productRouter from './routes/product.route';
+import authRouter from './routes/auth.route';
+import { errorHandler } from './middleware/error.middleware';
 
 dotenv.config();
 const app = express();
 
-const port = process.env.Port || 3000;
+const port = process.env.PORT || 3000; // ✅ Use PORT (uppercase)
+
 app.use(express.json());
 app.use(cookieParser());
+// app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }));
 
-// const client = postgres(process.env.DATABASE_URL!);
-// export const db = drizzle(client);
-
-// import productRouter from './routes/product.route';
-import authRouter from './routes/auth.route';
-
-// app.use('/api/v1/products', productRouter);
+app.use('/api/v1/products', productRouter);
 app.use('/api/v1/auth', authRouter);
 
-app.get('/', (req, res) => {
+app.use(errorHandler);
+
+app.get('/', (req: Request, res: Response) => {
   res.send('working');
 });
 
-app.listen(5000, () => {
-  console.log(`server is running on ${port}`);
+// ✅ Start server
+app.listen(port, () => {
+  console.log(`server is running on port ${port}`);
 });

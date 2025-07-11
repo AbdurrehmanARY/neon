@@ -4,14 +4,16 @@ import {
   getProducts,
   getSingleProduct,
   postProduct,
+  Product,
   updateProduct,
 } from '../controllers/product.controller';
 const router = express.Router();
+const product = new Product();
 
-router.post('/', postProduct);
-router.put('/:id', updateProduct);
-router.delete('/:id', deleteProduct);
-router.get('/', getProducts);
-router.get('/:id', getSingleProduct);
+router.post('/', product.postProduct);
+router.put('/:id', product.updateProduct);
+router.delete('/:id', product.deleteProduct);
+router.get('/', product.getProducts);
+router.get('/:id', product.getSingleProduct);
 
 export default router;

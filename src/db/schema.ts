@@ -1,3 +1,4 @@
+import { InferInsertModel, InferSelectModel } from 'drizzle-orm';
 import {
   boolean,
   integer,
@@ -32,6 +33,7 @@ export const userTable = pgTable('users', {
   email: varchar('email', { length: 255 }).notNull(),
   password: varchar('password', { length: 255 }).notNull(),
   role: Role('role').default('user').notNull(),
+  avatar: varchar('avatar', { length: 500 }).notNull(),
   isEmailVerified: boolean('email_varified').default(false),
   emailVarificationToken: varchar('email_varification_token', { length: 250 }),
   emailVarificationTokenExpire: timestamp('email_varification_token_expire', {
@@ -46,9 +48,7 @@ export const userTable = pgTable('users', {
   updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow(),
   deletedAt: timestamp('deleted_at', { withTimezone: true }),
 });
-
-// // isEmailVerified: { type: Boolean, default: false }, // New field: Email verification status
-//     emailVerificationToken: { type: String },         // New field: Verification token
-//     emailVerificationTokenExpires: { type: Date },    // New field: Token expiry
-//     passwordResetToken: { type: String }, // New field for password reset token
-//     passwordResetTokenExpires: { type: Date }, // New field for password reset token expiry
+export type SelectUser = InferSelectModel<typeof userTable>;
+export type InsertUser = InferInsertModel<typeof userTable>;
+export type SelectProduct = InferSelectModel<typeof productTable>;
+export type InsertProduct = InferInsertModel<typeof productTable>;

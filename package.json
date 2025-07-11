@@ -14,12 +14,15 @@
     "format": "prettier . --write"
   },
   "dependencies": {
+    "@types/multer": "^2.0.0",
     "bcrypt": "^6.0.0",
+    "cloudinary": "^2.7.0",
     "cookie-parser": "^1.4.7",
     "dotenv": "^17.1.0",
     "drizzle-orm": "^0.44.2",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
+    "multer": "^2.0.1",
     "nodemailer": "^7.0.4",
     "nodemon": "^3.1.10",
     "pg": "^8.16.3",
